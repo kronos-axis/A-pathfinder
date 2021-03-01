@@ -2,6 +2,7 @@ import pygame
 import math
 from queue import PriorityQueue
 
+#defining the window size
 WIDTH = 800
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
 pygame.display.set_caption("A* Path Finding Algorithm")
@@ -17,6 +18,7 @@ ORANGE = (255, 165 ,0)
 GREY = (128, 128, 128)
 TURQUOISE = (64, 224, 208)
 
+#creating the points
 class Spot:
 	def __init__(self, row, col, width, total_rows):
 		self.row = row
@@ -87,8 +89,9 @@ class Spot:
 	def __lt__(self, other):
 		return False
 
-
+#heuristic function
 def h(p1, p2):
+	
 	x1, y1 = p1
 	x2, y2 = p2
 	return abs(x1 - x2) + abs(y1 - y2)
@@ -100,7 +103,7 @@ def reconstruct_path(came_from, current, draw):
 		current.make_path()
 		draw()
 
-
+#A star algorithm
 def algorithm(draw, grid, start, end):
 	count = 0
 	open_set = PriorityQueue()
@@ -166,7 +169,7 @@ def draw_grid(win, rows, width):
 		for j in range(rows):
 			pygame.draw.line(win, GREY, (j * gap, 0), (j * gap, width))
 
-
+#default grid
 def draw(win, grid, rows, width):
 	win.fill(WHITE)
 
@@ -187,7 +190,7 @@ def get_clicked_pos(pos, rows, width):
 
 	return row, col
 
-
+#driver function
 def main(win, width):
 	ROWS = 50
 	grid = make_grid(ROWS, width)
